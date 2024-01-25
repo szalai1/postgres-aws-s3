@@ -76,16 +76,15 @@ AS $$
     }
 
     aws_settings = {
-        'aws_access_key_id': access_key if access_key else default_aws_settings.get('access_key_id', 'unknown'),
-        'aws_secret_access_key': secret_key if secret_key else default_aws_settings.get('secret_access_key', 'unknown'),
+        'aws_access_key_id': access_key if access_key else default_aws_settings.get('access_key_id'),
+        'aws_secret_access_key': secret_key if secret_key else default_aws_settings.get('secret_access_key'),
         'aws_session_token': session_token if session_token else default_aws_settings.get('session_token'),
         'endpoint_url': endpoint_url if endpoint_url else default_aws_settings.get('endpoint_url')
     }
 
     s3 = boto3.resource(
         's3',
-        region_name=region,
-        **aws_settings
+        region_name=region
     )
 
     obj = s3.Object(bucket, file_path)
